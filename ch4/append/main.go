@@ -6,7 +6,10 @@
 // Append illustrates the behavior of the built-in append function.
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 func appendslice(x []int, y ...int) []int {
 	var z []int
@@ -39,10 +42,15 @@ func appendInt(x []int, y int) []int {
 		// There is insufficient space.  Allocate a new array.
 		// Grow by doubling, for amortized linear complexity.
 		zcap := zlen
+		log.Printf("zcap: %d, len(x): %d", zcap, len(x))
 		if zcap < 2*len(x) {
+			log.Printf("zcap: %d", zcap)
 			zcap = 2 * len(x)
 		}
+		// zcap = 2 * len(x)
 		z = make([]int, zlen, zcap)
+		// z = make([]int, zlen, zlen)
+
 		copy(z, x) // a built-in function; see text
 	}
 	z[len(x)] = y
@@ -54,7 +62,7 @@ func appendInt(x []int, y int) []int {
 //!+growth
 func main() {
 	var x, y []int
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 3; i++ {
 		y = appendInt(x, i)
 		fmt.Printf("%d  cap=%d\t%v\n", i, cap(y), y)
 		x = y

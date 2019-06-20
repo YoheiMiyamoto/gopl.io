@@ -11,7 +11,7 @@ import (
 	"log"
 	"os"
 
-	"gopl.io/ch5/links"
+	"github.com/yoheimiyamoto/gopl.io/ch5/links"
 )
 
 //!+breadthFirst
@@ -35,8 +35,10 @@ func breadthFirst(f func(item string) []string, worklist []string) {
 //!-breadthFirst
 
 //!+crawl
+// 深さ優先でnodeを検索してすべてのlinkを取得する
 func crawl(url string) []string {
 	fmt.Println(url)
+
 	list, err := links.Extract(url)
 	if err != nil {
 		log.Print(err)
